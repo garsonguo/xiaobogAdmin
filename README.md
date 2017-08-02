@@ -11,7 +11,6 @@
 <li>日期控件bootstrap-datepicker：https://github.com/uxsolutions/bootstrap-datepicker</li>
 <li>上传附件bootstrap-fileinput：http://www.cnblogs.com/landeanfen/p/5007400.html</li>
 <li>树控件jsTree:https://www.jstree.com/api/</li>
-<li></li>
-<li></li>
-<li></li>
+<li>loading页面加载插件：自己封装</li>
+<li>tab切换：自己封装</li>
 </ol>
