@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>上传附件</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--插件  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!--插件——动画  -->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!--插件——字体库  -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--插件——上传附件 -->
+    <link rel="stylesheet" href="css/plugins/bootstrap-fileinput/fileinput.css">
+
+    <!--自定义  -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <ol class="breadcrumb">
+        <li>表单控件</li>
+        <li class="active">时间控件</li>
+    </ol>
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>据图用法参照连接：
+                    <a class="btn btn-warning" target="_blank" href="http://www.cnblogs.com/landeanfen/p/5007400.html">http://www.cnblogs.com/landeanfen/p/5007400.html</a>
+                </h3>
+                <div class="">
+                    <label>单文件上传</label>
+                    <input id="uploadfile" name="file" type="file" class="file" />
+                </div>
+                <div>
+                    <label for="">多文件上传</label>
+                    <input id="uploadfile1" name="file" type="file" class="file-loading" multiple/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--插件-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--插件——上传附件  -->
+    <script src="js/plugins/bootstrap-fileinput/fileinput.js"></script>
+    <script src="js/plugins/bootstrap-fileinput/zh.js"></script>
+
+    <!--自定义  -->
+    <script src="js/loading.js"></script>
+
+    <script>
+        $(function() {
+            $("#uploadfile").fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: "#",
+                allowedFileExtensions: ['jpg', 'png', 'gif', 'bmp'], //接收的文件后缀
+                showCaption: false, //是否显示标题
+                uploadAsync: true,
+                showUpload: false,
+                browseClass: "btn btn-primary", //按钮样式
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                maxFilePreviewSize: 5120,
+                maxFileSize: 409600
+            });
+            $("#uploadfile1").fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: "#",
+                showCaption: false, //是否显示标题
+                uploadAsync: true,
+                showUpload: false,
+                browseClass: "btn btn-primary", //按钮样式
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                maxFilePreviewSize: 5120,
+                maxFileSize: 409600
+            });
+        });
+    </script>
+</body>
+
+</html>

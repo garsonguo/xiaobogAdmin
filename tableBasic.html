@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ceshi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--插件  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!--插件——动画  -->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!--插件——字体  -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--插件——时间  -->
+    <link rel="stylesheet" href="css/plugins/bootstrap-datapicker/datepicker3.css">
+
+    <!--插件——表格  -->
+    <link rel="stylesheet" href="css/plugins/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="css/plugins/bootstrap-table/bootstrap-table-fixed-columns.css">
+
+    <!--插件——提示消息  -->
+    <link rel="stylesheet" href="css/plugins/toastr/toastr.min.css">
+
+    <!--自定义  -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="">
+    <ol class="breadcrumb">
+        <li>表格控件</li>
+        <li class="active">基本表格</li>
+    </ol>
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="name1" class="control-label">名称：</label>
+                        <input type="text" class="form-control" id="name1">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">时间选择：</label>
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control" name="start" value="2017-07-11" />
+                            <span class="input-group-addon">到</span>
+                            <input type="text" class="input-sm form-control" name="end" value="2017-07-31" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time" class="control-label">价格：</label>
+                        <select class="form-control">
+                            <option>美元——$1</option>
+                            <option>美元——$2</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-info">查询</button>
+                </form>
+                <div class=" hidden-xs" id="exampleTableEventsToolbar" role="group">
+                    <button id="newForm" data-toggle="modal" type="button" class="btn btn-info">
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i>新增
+                                    </button>
+                    <button id="delete" type="button" class="btn btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>删除
+                                    </button>
+                </div>
+                <table id="table" class="animated fadeInRight" data-row-style="rowStyle" data-mobile-responsive="true">
+                </table>
+                <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">新增</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name" class="control-label">名称:</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="control-label">价格:</label>
+                                        <textarea class="form-control" id="price"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button id="ok" type="button" class="btn btn-primary">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--插件  -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--插件——表格  -->
+    <script src="js/plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-fixed-columns.js"></script>
+
+    <!--插件——时间  -->
+    <script src="js/plugins/bootstrap-datapicker/bootstrap-datepicker.js"></script>
+
+    <!--插件——提示消息  -->
+    <script src="js/plugins/toastr/toastr.min.js"></script>
+
+
+    <!--自定义  -->
+    <script src="js/loading.js"></script>
+
+    <script>
+        var $table = $('#table'),
+            $remove = $('#remove');
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Like"><i class="fa fa-edit" aria-hidden="true"></i>',
+                '编辑',
+                '</a>  ',
+                '<a id="remove" class="remove" href="javascript:void(0)" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>',
+                '删除',
+                '</a>',
+                '<a id="check" class="check" href="javascript:void(0)" title="Remove"><i class="fa fa-eye" aria-hidden="true"></i>',
+                '查看',
+                '</a>'
+            ].join('');
+        }
+        window.operateEvents = {
+            'click .edit': function(e, value, row, index) {
+                alert('You click like action, row: ' + JSON.stringify(row));
+            },
+            'click .remove': function(e, value, row, index) {
+                $table.bootstrapTable('remove', {
+                    field: 'id',
+                    values: [row.id]
+                });
+            }
+        };
+        //表格行颜色
+        // function rowStyle(row, index) {
+        //     var classes = ['active', 'success', 'info', 'warning', 'danger'];
+        //     if (index % 2 === 0 && index / 2 < classes.length) {
+        //         return {
+        //             classes: classes[1]
+        //         };
+        //     }
+        //     return {};
+        // }
+
+        $(function() {
+            Loading.start();
+            setTimeout(function() {
+                Loading.end();
+            }, 2000);
+
+            //时间
+            $('#datepicker').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+            //初始化表格
+            $('#table').bootstrapTable({
+                // url: "js/data/bootstrap_table_test.json",
+                search: false,
+                pagination: true,
+                showRefresh: true,
+                showToggle: true,
+                showColumns: true,
+                sortName: 'id',
+                sortOrder: 'asc',
+                sortStable: true,
+                iconSize: 'outline',
+                toolbar: '#exampleTableEventsToolbar',
+                icons: {
+                    refresh: 'glyphicon-repeat',
+                    toggle: 'glyphicon-list-alt',
+                    columns: 'glyphicon-list'
+                },
+                columns: [{
+                    field: 'state',
+                    checkbox: true,
+                }, {
+                    field: 'id',
+                    title: 'ID',
+                    order: 'asc',
+                    sortable: true
+                }, {
+                    field: 'name',
+                    title: '名称'
+                }, {
+                    field: 'price',
+                    title: '价格',
+                    order: 'asc'
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'left',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                }],
+                data: [{
+                    "id": 0,
+                    "name": "试0测试0测试0测试0",
+                    "price": "&yen;0"
+                }, {
+                    "id": 1,
+                    "name": "测试1",
+                    "price": "&yen;1"
+                }, {
+                    "id": 2,
+                    "name": "测试2",
+                    "price": "&yen;2"
+                }, {
+                    "id": 3,
+                    "name": "测试3",
+                    "price": "&yen;3"
+                }, {
+                    "id": 4,
+                    "name": "测试4",
+                    "price": "&yen;4"
+                }, {
+                    "id": 5,
+                    "name": "测试5",
+                    "price": "&yen;5"
+                }, {
+                    "id": 6,
+                    "name": "测试6",
+                    "price": "&yen;6"
+                }, {
+                    "id": 7,
+                    "name": "测试7",
+                    "price": "&yen;7"
+                }, {
+                    "id": 8,
+                    "name": "测试8",
+                    "price": "&yen;8"
+                }, {
+                    "id": 9,
+                    "name": "测试9",
+                    "price": "&yen;9"
+                }, {
+                    "id": 10,
+                    "name": "测试10",
+                    "price": "&yen;10"
+                }, {
+                    "id": 11,
+                    "name": "测试11",
+                    "price": "&yen;11"
+                }, {
+                    "id": 12,
+                    "name": "测试12",
+                    "price": "&yen;12"
+                }, {
+                    "id": 13,
+                    "name": "测试13",
+                    "price": "&yen;13"
+                }, {
+                    "id": 14,
+                    "name": "测试14",
+                    "price": "&yen;14"
+                }, {
+                    "id": 15,
+                    "name": "测试15",
+                    "price": "&yen;15"
+                }, {
+                    "id": 16,
+                    "name": "测试16",
+                    "price": "&yen;16"
+                }, {
+                    "id": 17,
+                    "name": "测试17",
+                    "price": "&yen;17"
+                }, {
+                    "id": 18,
+                    "name": "测试18",
+                    "price": "&yen;18"
+                }, {
+                    "id": 19,
+                    "name": "测试19",
+                    "price": "&yen;19"
+                }, {
+                    "id": 20,
+                    "name": "测试20",
+                    "price": "&yen;20"
+                }]
+            });
+            //表格的一些事件
+            $('#table').on('all.bs.table', function(e, name, args) {
+                    console.log('Event:', name, ', data:', args);
+                })
+                .on('click-row.bs.table', function(e, row, $element) {})
+                .on('dbl-click-row.bs.table', function(e, row, $element) {})
+                .on('sort.bs.table', function(e, name, order) {})
+                .on('check.bs.table', function(e, row) {})
+                .on('uncheck.bs.table', function(e, row) {})
+                .on('check-all.bs.table', function(e) {})
+                .on('uncheck-all.bs.table', function(e) {})
+                .on('load-success.bs.table', function(e, data) {})
+                .on('load-error.bs.table', function(e, status) {})
+                .on('column-switch.bs.table', function(e, field, checked) {})
+                .on('page-change.bs.table', function(e, size, number) {})
+                .on('search.bs.table', function(e, text) {});
+
+            //删除选中
+            $("#delete").on('click', function() {
+                alert('getSelections: ' + JSON.stringify($table.bootstrapTable('getSelections')));
+            });
+            //
+            $("#newForm").on('click', function() {
+                $("#myModal").modal({
+                    backdrop: 'static'
+                });
+            });
+            //消息提示
+            $("#ok").on('click', function() {
+                //常规消息
+                toastr.info("提示!");
+                //成功  
+                toastr.success("成功!");
+                //警告
+                toastr.warning("警告!");
+                //错误
+                toastr.error("错误!");
+                //模态框关闭
+                $('#myModal').modal('hide');
+            });
+        });
+    </script>
+</body>
+
+</html>

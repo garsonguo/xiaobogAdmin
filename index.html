@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>Xiaobo管理系统</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="favicon.ico">
+    <!--插件  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!--插件——动画  -->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!--插件——字体库  -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--插件——加载进度条  -->
+    <link rel="stylesheet" href="css/plugins/nprogress/nprogress.css">
+
+    <!--插件——侧边栏导航  -->
+    <link rel="stylesheet" href="css/plugins/metisMenu/metisMenu.css">
+
+    <!--自定义  -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <img class="logo" width="30px" height="30px" src="img/logo.png" alt="logo">
+            <span class="logo-title">Xiaobo管理系统</span>
+            <div class="pull-right user">
+                <span class="fa fa-user fa-lg"></span>
+                <span class="fa fa-angle-down fa-lg"></span>
+                <div class="user-info" style="display:none;">
+                    <div class="user-title">用户信息：Admin</div>
+                    <button class="btn btn-default">公司简介</button>
+                    <button class="btn btn-default">退出登录</button>
+                </div>
+            </div>
+
+        </header>
+        <!--左侧导航-->
+        <nav class="navbar-default navbar-static-side">
+            <div class="sidebar-nav">
+                <ul class="metismenu" id="menu">
+                    <li class="active">
+                        <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                            <span class="fa fa-fw fa-th-large"></span>表格控件
+                        </a>
+                        <ul class="collapse" aria-expanded="true">
+                            <li><a href="tableBasic.html">基础表格</a></li>
+                            <li><a href="tableFixed.html">固定表头</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                            <span class="fa fa-fw fa-file"></span>表单控件
+                        </a>
+                        <ul class="collapse" aria-expanded="false">
+                            <li>
+                                <a class="has-arrow" href="javascript:;">表单控件</a>
+                                <ul class="collapse" aria-expanded="false">
+                                    <li><a href="formTime.html">时间控件</a></li>
+                                    <li><a href="formUpload.html">上传附件</a></li>
+                                    <li><a href="formTree.html">树控件</a></li>
+                                    <li><a href="formValidation.html">表单验证</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="formTab.html">Tab页</a></li>
+                            <li><a href="formEchart.html">Echart</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="index1.html" aria-expanded="false">
+                            <span class="fa fa-fw fa-user"></span>用户探索
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--右侧文本区-->
+        <div class="wrapper-page">
+
+            <!--tab-->
+            <div class="content-tabs">
+                <!-- <button id="scrollTabLeft" class="btn btn-default">
+                    <span class="glyphicon glyphicon-backward"></span>
+                </button> -->
+                <nav class="page-tabs menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="menuTab active" data-id="tableBasic.html">基础表格</a>
+                        <a href="javascript:;" class="menuTab" data-id="tableFixed.html">固定表头
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </div>
+                </nav>
+                <!-- <button id="scrollTabRight" class="btn btn-default pull-right btn-right">
+                    <span class="glyphicon glyphicon-forward"></span>
+                </button> -->
+            </div>
+            <div class="dropdown">
+                <a id="dLabel" class="btn-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    页签操作
+    <span class="caret"></span>
+  </a>
+                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                    <li class="tabFresh">当前页刷新</li>
+                    <li class="tabCloseOther">除此页全部关闭</li>
+                    <li class="tabCloseAll">全部关闭</li>
+                </ul>
+            </div>
+            <!--iframe主体  -->
+            <div class="content" id="content">
+                <iframe id="iframe" class="iframe" width="100%" height="100%" src="tableBasic.html" data-id='tableBasic.html' frameborder="0"></iframe>
+                <iframe id="iframe1" class="iframe" width="100%" height="100%" src="tableFixed.html" data-id='tableFixed.html' frameborder="0" style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!--插件-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--插件——侧边栏导航  -->
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!--插件——加载进度条  -->
+    <script src="js/plugins/nprogress/nprogress.js"></script>
+
+    <!--自定义JS  -->
+    <script src="js/tab.js"></script>
+
+    <script>
+        $(function() {
+            //调用侧边栏插件
+            $("#menu").metisMenu();
+
+            $(".user").hover(function() {
+                $('.user-info').toggle().addClass('animated fadeIn');
+            });
+            //首页加载
+            NProgress.start();
+            setTimeout(function() {
+                NProgress.done();
+            }, 1000)
+
+            //侧边栏
+            $(".metismenu li a").on("click", function() {
+                $(".metismenu li a").removeClass('active1');
+                $(this).addClass("active1");
+                return false;
+            });
+
+        });
+    </script>
+</body>
+
+</html>
