@@ -316,7 +316,7 @@ ul {
 
 .menuTabs {
     display: inline-block;
-    /* margin-left: 40px; */
+    margin-left: 40px;
 }
 
 .menuTab .fa {
@@ -348,7 +348,7 @@ ul {
 
 .content-tabs .btn.btn-right {
     position: absolute;
-    right: 90px;
+    right: 128px;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
 }
