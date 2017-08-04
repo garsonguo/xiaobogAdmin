@@ -316,7 +316,6 @@ ul {
 
 .menuTabs {
     display: inline-block;
-    margin-left: 40px;
 }
 
 .menuTab .fa {
@@ -346,11 +345,25 @@ ul {
     outline: 0;
 }
 
-.content-tabs .btn.btn-right {
+.btn-left {
     position: absolute;
-    right: 128px;
+    left: 200px;
+    height: 40px;
+    border-radius: 0;
+    border: 0;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
+    border-bottom: 2px solid #1b84ed;
+}
+
+.btn-right {
+    position: absolute;
+    right: 128px;
+    border: 0;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    height: 38px;
+    border-radius: 0;
 }
 
 .dropdown {
@@ -358,6 +371,7 @@ ul {
     right: 0;
     top: 50px;
     padding: 0 29px;
+    background-color: #fff;
 }
 
 .btn-dropdown {
@@ -413,8 +427,7 @@ ul {
 
 .content-tabs {
     position: absolute;
-    border-left: 1px solid #ddd;
-    left: 200px;
+    left: 240px;
     top: 50px;
     right: 0;
     overflow: hidden;

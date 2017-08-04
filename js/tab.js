@@ -23,6 +23,13 @@ tab切换
                             }
                         });
                     }
+                    var scrollWidth = 0;
+                    $(this).prevAll().each(
+                        function() {
+                            scrollWidth += $(this).width();
+                        }
+                    );
+                    $('.page-tabs-content').animate({ marginLeft: 0 - scrollWidth + 'px' }, 'fast');
                     flag = false;
                     return false;
                 }
@@ -37,18 +44,19 @@ tab切换
                     $('.content').find('.iframe').hide();
                     $('.content').append(strIframe);
                 }
-                var visibleWidth = $('.content-tabs').width() - 140;
+                var visibleWidth = $('.content-tabs').width() - 170;
                 var activeEleWidth = $('.page-tabs-content').width();
                 if (visibleWidth > activeEleWidth) {
                     return false;
                 } else {
-                    $('.menuTab').each(function() {
-                        var hasc = $(this).children('i');
-                        if (hasc.length == 0) {
-                            $(this).next().remove();
-                        }
-                    });
-
+                    //当tab超出可视宽度时，替换最左边可以关闭的第一个选项卡
+                    // $('.menuTab').each(function() {
+                    //     var hasc = $(this).children('i');
+                    //     if (hasc.length == 0) {
+                    //         $(this).next().remove();
+                    //     }
+                    // });
+                    $.tab.scrollTab(this);
                 }
             }
 
@@ -130,25 +138,18 @@ tab切换
         },
         scrollTab: function(element) {
             //移动tab
-            var url = $(element).attr('href');
-            var scrollWidth = 0;
-            $('.menuTab').each(function() {
-                if ($(this).data('id') == url) {
-                    scrollWidth += $(this).width();
-                }
-            });
             var visibleWidth = $('.content-tabs').width() - 170;
             var activeEleWidth = $('.page-tabs-content').width();
             if (visibleWidth > activeEleWidth) {
                 return false;
             } else {
-                $('.page-tabs-content').animate({ marginLeft: 0 - scrollWidth + 'px' }, 'fast');
+                $('.page-tabs-content').animate({ marginLeft: 0 - activeEleWidth + visibleWidth + 'px' }, 'fast');
             }
         },
         scrollTabLeft: function() {
             //向左移动
             var visibleWidth = $('.content-tabs').width() - 170;
-            var activeEleWidth = $('.page-tabs-content').width();
+            var activeEleWidth = $('.page-tabs').width();
             if (visibleWidth > activeEleWidth) {
                 return false;
             } else {
@@ -166,8 +167,8 @@ tab切换
             $('.tabFresh').on('click', $.tab.freshTab);
             $('.tabCloseAll').on('click', $.tab.closeTabAll);
             $('.tabCloseOther').on('click', $.tab.closeTabOther);
-            // $('#scrollTabLeft').on('click', $.tab.scrollTabLeft);
-            // $('#scrollTabRight').on('click', $.tab.scrollTabRight);
+            $('#scrollTabLeft').on('click', $.tab.scrollTabLeft);
+            $('#scrollTabRight').on('click', $.tab.scrollTabRight);
         }
     };
     $(function() {
