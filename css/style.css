@@ -220,7 +220,7 @@ td>a>i {
 }
 
 .navbar-default {
-    background-color: #343a40;
+    background-color: #fff;
 }
 
 .navbar-static-side {
@@ -228,9 +228,9 @@ td>a>i {
     width: 200px;
     z-index: 2001;
     height: 100%;
-    top: 50px;
-    left: 0;
-    bottom: 0;
+}
+
+.slimScrollDiv>* {
     overflow: hidden;
 }
 
@@ -257,12 +257,12 @@ ul {
 }
 
 .sidebar-nav>ul {
-    position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    overflow: auto;
+    overflow: auto; */
 }
 
 .sidebar-nav ul {

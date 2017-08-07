@@ -129,6 +129,7 @@
 
     <!--插件——加载进度条  -->
     <script src="js/plugins/nprogress/nprogress.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!--自定义JS  -->
     <script src="js/tab.js"></script>
@@ -137,7 +138,11 @@
         $(function() {
             //调用侧边栏插件
             $("#menu").metisMenu();
-
+            $('.sidebar-nav').slimScroll({
+                height: '100%',
+                railOpacity: 0.9,
+                alwaysVisible: false
+            });
             $(".user").hover(function() {
                 $('.user-info').toggle().addClass('animated fadeIn');
             });
