@@ -29,6 +29,7 @@
 <body>
     <div class="wrapper">
         <header class="header">
+            <i id="sideClose" class="fa fa-bars fa-lg"></i>
             <img class="logo" width="30px" height="30px" src="img/logo.png" alt="logo">
             <span class="logo-title">Xiaobo管理系统</span>
             <div class="pull-right user">
@@ -40,7 +41,6 @@
                     <button class="btn btn-default">退出登录</button>
                 </div>
             </div>
-
         </header>
         <!--左侧导航-->
         <nav class="navbar-default navbar-static-side">
@@ -48,7 +48,8 @@
                 <ul class="metismenu" id="menu">
                     <li class="active">
                         <a class="has-arrow" href="javascript:;" aria-expanded="false">
-                            <span class="fa fa-fw fa-th-large"></span>表格控件
+                            <span class="fa fa-fw fa-th-large"></span>
+                            <span class="menu-title">表格控件</span>
                         </a>
                         <ul class="collapse" aria-expanded="true">
                             <li><a href="tableBasic.html">基础表格</a></li>
@@ -57,7 +58,8 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:;" aria-expanded="false">
-                            <span class="fa fa-fw fa-file"></span>表单控件
+                            <span class="fa fa-fw fa-file"></span>
+                            <span class="menu-title">表单控件</span>
                         </a>
                         <ul class="collapse" aria-expanded="false">
                             <li>
@@ -75,7 +77,8 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="index1.html" aria-expanded="false">
-                            <span class="fa fa-fw fa-user"></span>用户探索
+                            <span class="fa fa-fw fa-user"></span>
+                            <span class="menu-title">用户探索</span>
                         </a>
                     </li>
                 </ul>
@@ -149,9 +152,32 @@
             //首页加载
             NProgress.start();
             setTimeout(function() {
-                NProgress.done();
-            }, 1000)
-
+                    NProgress.done();
+                }, 1000)
+                //左侧导航条收缩
+            $('#sideClose').on('click', function() {
+                if ($('.navbar-default').hasClass('side-close')) {
+                    $('.navbar-default').removeClass('side-close');
+                } else {
+                    $('.navbar-default').addClass('side-close');
+                }
+                if ($('.wrapper-page').hasClass('page-close')) {
+                    $('.wrapper-page').removeClass('page-close');
+                } else {
+                    $('.wrapper-page').addClass('page-close');
+                }
+                $('.metismenu li').each(function() {
+                    if ($(this).hasClass('active')) {
+                        $(this).children('.has-arrow').removeClass('active1');
+                        $(this).children('.collapse').removeClass('in').attr('aria-expanded', 'false');
+                        if ($(this).children('.collapse').children('li').hasClass('active')) {
+                            $(this).children('.collapse').children('li').removeClass('active');
+                            $(this).children('.collapse').children('li').children('.has-arrow').removeClass('active1');
+                            $(this).children('.collapse').children('li').children('.collapse').removeClass('in').attr('aria-expanded', 'false');
+                        }
+                    }
+                });
+            });
             //侧边栏
             $(".metismenu li a").on("click", function() {
                 $(".metismenu li a").removeClass('active1');
