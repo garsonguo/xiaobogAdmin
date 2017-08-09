@@ -6,7 +6,8 @@
  * Made by Osman Nuri Okumus
  * Under MIT License
  */
-;(function($, window, document, undefined) {
+;
+(function($, window, document, undefined) {
 
     var pluginName = "metisMenu",
         defaults = {
@@ -55,7 +56,13 @@
                         return;
                     }
                 }
-
+                if ($(this).parent('li').parent('ul').parent('div').parent('div').parent('nav').hasClass('side-close')) {
+                    if (!$(this).parent('li').hasClass('active')) {
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
+                    }
+                    return false;
+                }
                 $(this).parent("li").toggleClass("active").children("ul").collapse("toggle");
 
                 if ($toggle) {
@@ -73,8 +80,8 @@
 
             while (
                 div.innerHTML = "<!--[if gt IE " + (++v) + "]><i></i><![endif]-->",
-                    all[0]
-                ) {
+                all[0]
+            ) {
                 return v > 4 ? v : undef;
             }
         },
@@ -107,7 +114,7 @@
     };
 
     $.fn[pluginName] = function(options) {
-        this.each(function () {
+        this.each(function() {
             var el = $(this);
             if (el.data(pluginName)) {
                 el.data(pluginName).remove();
