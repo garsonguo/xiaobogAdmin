@@ -1,5 +1,10 @@
+## 启动页面
+>index.html
+<p>本后台管理系统基础模板是基于iframe刷新主内容区的，它收集了常用的jquery插件，它可直接用于基于jquery的后台管理系统的开发。</p>
+<p>
+<img src='./img/截图.png'>
+</p>
 ## 插件汇总
-
 <ol>
 <li>bootstrap整体UI库：http://v3.bootcss.com/</li>
 <li>animate.css动画库：http://www.dowebok.com/demo/2014/98/</li>
